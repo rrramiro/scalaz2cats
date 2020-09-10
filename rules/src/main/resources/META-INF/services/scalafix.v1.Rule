@@ -1,0 +1,8 @@
+fix.MigrateEither
+fix.MigrateOptionSyntax
+fix.MigrateValidationNel
+fix.MigrateValidation
+fix.RemoveGlobalImports
+fix.MigrateEqual
+fix.MigrateBoolean
+fix.MigrateNonEmptyList

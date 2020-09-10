@@ -1,20 +1,14 @@
+sudo: false
+
 language: scala
-
-jdk: oraclejdk8
-
-stages:
-  - name: test
-
-jobs:
-  include:
-    - env: TEST="scalafmt"
-      script: ./bin/scalafmt --test
-    - env: TEST="test"
-      script:
-        - cd scalafix
-        - sbt tests/test
 
 cache:
   directories:
     - $HOME/.ivy2/cache
     - $HOME/.sbt
+
+jdk: openjdk11
+
+script:
+  - sbt tests/test
+

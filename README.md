@@ -12,6 +12,5 @@ Follow the [guide on the Scalafix website](https://scalacenter.github.io/scalafi
 As a quick-start, you can run the tests by doing:
 
 ```bash
-cd scalafix
 sbt tests/test
 ```
