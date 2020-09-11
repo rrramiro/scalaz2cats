@@ -6,6 +6,14 @@ import scala.meta._
 class RemoveGlobalImports extends SemanticRule("RemoveGlobalImports") {
   override def fix(implicit ctx: SemanticDocument): Patch = {
     ctx.tree.collect {
+      case t @ importer"scalaz.Monad" =>
+        Patch.addGlobalImport(importer"cats.Monad") + Patch.removeImportee(
+          t.asInstanceOf[Importer].importees.head
+        )
+      case t @ importer"scalaz.Monoid" =>
+        Patch.addGlobalImport(importer"cats.Monoid") + Patch.removeImportee(
+          t.asInstanceOf[Importer].importees.head
+        )
       case t @ importer"scalaz._" =>
         Patch.addGlobalImport(importer"cats._") + Patch.removeImportee(
           t.asInstanceOf[Importer].importees.head
