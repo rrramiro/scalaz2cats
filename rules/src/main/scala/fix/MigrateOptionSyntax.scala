@@ -25,11 +25,14 @@ class MigrateOptionSyntax extends SemanticRule("MigrateOptionSyntax") {
         Patch.replaceTree(t, catsOptionSyntaxImport.syntax)
     }.asPatch + Patch.replaceSymbols(
       "scalaz/syntax/std/OptionOps#`|`()." -> "getOrElse"
-    ) + addImportsIfNeeded {
+    )
+    /*
+    + addImportsIfNeeded {
       case Term.Select(_, some(_) | none(_))
           if !ctx.tree.contains(scalazOptionSyntaxImport)
             && !ctx.tree.contains(scalazOptionImport) =>
         catsOptionSyntaxImport
     }
+     */
   }
 }

@@ -10,7 +10,7 @@ class MigrateNonEmptyList extends SemanticRule("MigrateNonEmptyList") {
       case t @ importer"scalaz.NonEmptyList" =>
         Patch.replaceTree(t, importer"cats.data.NonEmptyList".syntax)
     }.asPatch + Patch.replaceSymbols(
-      "scalaz/NonEmptyList.nels()." -> "of"
+      "scalaz/NonEmptyList.nels()." -> "of()."
     )
   }
 }

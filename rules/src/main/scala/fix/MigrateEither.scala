@@ -31,9 +31,12 @@ class MigrateEither extends SemanticRule("MigrateEither") {
       """scalaz/`\/`#`|`().""" -> "getOrElse",
       """scalaz/`\/-`.""" -> "scala.Right",
       """scalaz/`-\/`.""" -> "scala.Left"
-    ) + addImportsIfNeeded {
+    )
+
+    /*+ addImportsIfNeeded {
       case Term.Select(_, left(_) | right(_)) if !ctx.tree.contains(scalazEitherSyntaxImport) =>
         catsEitherSyntaxImport
     }
+     */
   }
 }

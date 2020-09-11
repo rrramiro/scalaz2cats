@@ -1,6 +1,7 @@
 package fix
 
-import cats.syntax.option._
+import cats._
+import cats.implicits._
 
 object MigrateOptionSyntax2Test {
   class User(name: String)

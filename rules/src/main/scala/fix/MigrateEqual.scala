@@ -40,12 +40,14 @@ class MigrateEqual extends SemanticRule("MigrateEqual") {
       "scalaz/Equal.equalA()." -> "fromUniversalEquals",
       "scalaz.Equal.equalBy" -> "by",
       "scalaz.Equal.equal" -> "eqv"
-    ) + addImportsIfNeeded {
+    )
+    /*+ addImportsIfNeeded {
       case Term.ApplyInfix(_, `===`(_) | `=/=`(_) | `/==`(_) | `≠`(_) | `≟`(_), _, _)
           if !ctx.tree.contains(scalazEqualSyntaxImport) =>
         catsEqualSyntaxImport
-    } + addImportsIfNeeded {
-      case Term.Select(Equal(_), _) if !ctx.tree.contains(scalazEqualImport) => catsEqualImport
+      case Term.Select(Equal(_), _) if !ctx.tree.contains(scalazEqualImport) =>
+        catsEqualImport
     }
+     */
   }
 }

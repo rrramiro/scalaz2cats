@@ -1,6 +1,7 @@
 package fix
 
-import cats.syntax.either._
+import cats._
+import cats.implicits._
 
 object Mylibrary_1_0_Test2 {
   def myMethod(x: Int): Either[String, Int] =

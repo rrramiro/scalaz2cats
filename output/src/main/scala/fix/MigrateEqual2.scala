@@ -1,7 +1,7 @@
 package fix
 
-import cats.Eq
-import cats.syntax.eq._
+import cats._
+import cats.implicits._
 
 object MigrateEqual2Test {
 
