@@ -1,12 +1,10 @@
 package fix
 
-import fix.ScalafixUtils._
 import scalafix.v1._
 import scala.meta._
-import scala.meta.contrib._
 
 class MigrateEither extends SemanticRule("MigrateEither") {
-  private lazy val scalazEitherSyntaxImport = importer"scalaz.syntax.either._"
+  //private lazy val scalazEitherSyntaxImport = importer"scalaz.syntax.either._"
   private lazy val catsEitherSyntaxImport = importer"cats.syntax.either._"
 
   private lazy val \/ = SymbolMatcher.normalized("scalaz.`\\/`.")
@@ -32,11 +30,5 @@ class MigrateEither extends SemanticRule("MigrateEither") {
       """scalaz/`\/-`.""" -> "scala.Right",
       """scalaz/`-\/`.""" -> "scala.Left"
     )
-
-    /*+ addImportsIfNeeded {
-      case Term.Select(_, left(_) | right(_)) if !ctx.tree.contains(scalazEitherSyntaxImport) =>
-        catsEitherSyntaxImport
-    }
-     */
   }
 }

@@ -13,7 +13,6 @@ class MigrateValidationNel extends SemanticRule("MigrateValidationNel") {
   private lazy val successNel = SymbolMatcher.normalized("scalaz.syntax.ValidationOps.successNel.")
   private lazy val failureNel = SymbolMatcher.normalized("scalaz.syntax.ValidationOps.failureNel.")
 
-  // blame scalaz/core/src/main/scala/scalaz/syntax/ApplicativeBuilder.scala for this
   private[this] val cartesianBuilders = SymbolMatcher.normalized(
     ("scalaz.syntax.ApplyOps.`|@|`." ::
       "scalaz.syntax.ApplicativeBuilder.`|@|`." ::

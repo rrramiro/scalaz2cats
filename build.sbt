@@ -1,5 +1,5 @@
 
-val compilerOptions = Seq(
+lazy val compilerOptions = Seq(
   "-deprecation",
   "-encoding",
   "UTF-8",
@@ -31,9 +31,12 @@ lazy val baseSettings = Seq(
 lazy val root = project
   .in(file("."))
   .settings(baseSettings)
-  .aggregate(rules, input, output, tests)
+  .settings(
+    skip in publish := true
+  )
+  .aggregate(scalaz2cats, input, output, tests)
 
-lazy val rules = project.settings(baseSettings).settings(
+lazy val scalaz2cats = (project in file("rules")).settings(baseSettings).settings(
   libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion,
   libraryDependencies += ("ch.epfl.scala" % "scalafix-reflect" % V.scalafixVersion ).cross(CrossVersion.full),
   scalacOptions += "-Ywarn-unused-import"
@@ -45,6 +48,7 @@ lazy val input = project.settings(baseSettings).settings(
 )
 
 lazy val output = project.disablePlugins(ScalafmtPlugin).settings(
+  skip in publish := true,
   libraryDependencies += "org.typelevel" %% "cats-effect" % "2.0.0",
   libraryDependencies += "org.typelevel" %% "cats-core" % "1.5.0",
   libraryDependencies += "org.typelevel" %% "mouse" % "0.25"
@@ -66,7 +70,7 @@ lazy val tests = project
     scalafixTestkitInputClasspath :=
       fullClasspath.in(input, Compile).value
   )
-  .dependsOn(rules)
+  .dependsOn(scalaz2cats)
   .enablePlugins(ScalafixTestkitPlugin)
 
 Global / onChangedBuildSource := ReloadOnSourceChanges

@@ -1,14 +1,12 @@
 package fix
 
-import fix.ScalafixUtils._
 import scalafix.v1._
 import scala.meta._
-import scala.meta.contrib._
 
 class MigrateEqual extends SemanticRule("MigrateEqual") {
 
-  private lazy val scalazEqualSyntaxImport = importer"scalaz.syntax.equal._"
-  private lazy val scalazEqualImport = importer"scalaz.Equal"
+  //private lazy val scalazEqualSyntaxImport = importer"scalaz.syntax.equal._"
+  //private lazy val scalazEqualImport = importer"scalaz.Equal"
   private lazy val catsEqualSyntaxImport = importer"cats.syntax.eq._"
   private lazy val catsEqualImport = importer"cats.Eq"
 
@@ -41,13 +39,5 @@ class MigrateEqual extends SemanticRule("MigrateEqual") {
       "scalaz.Equal.equalBy" -> "by",
       "scalaz.Equal.equal" -> "eqv"
     )
-    /*+ addImportsIfNeeded {
-      case Term.ApplyInfix(_, `===`(_) | `=/=`(_) | `/==`(_) | `≠`(_) | `≟`(_), _, _)
-          if !ctx.tree.contains(scalazEqualSyntaxImport) =>
-        catsEqualSyntaxImport
-      case Term.Select(Equal(_), _) if !ctx.tree.contains(scalazEqualImport) =>
-        catsEqualImport
-    }
-     */
   }
 }
