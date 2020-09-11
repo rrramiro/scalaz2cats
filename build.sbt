@@ -61,14 +61,12 @@ lazy val tests = project
     skip in publish := true,
     libraryDependencies += ("ch.epfl.scala" % "scalafix-testkit" % V.scalafixVersion % Test).cross(CrossVersion.full),
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.0" % Test,
-    compile.in(Compile) :=
-      compile.in(Compile).dependsOn(compile.in(input, Compile)).value,
-    scalafixTestkitOutputSourceDirectories :=
-      sourceDirectories.in(output, Compile).value,
-    scalafixTestkitInputSourceDirectories :=
-      sourceDirectories.in(input, Compile).value,
-    scalafixTestkitInputClasspath :=
-      fullClasspath.in(input, Compile).value
+    compile.in(Compile) := compile.in(Compile).dependsOn(compile.in(input, Compile)).value,
+    scalafixTestkitOutputSourceDirectories := sourceDirectories.in(output, Compile).value,
+    scalafixTestkitInputSourceDirectories := sourceDirectories.in(input, Compile).value,
+    scalafixTestkitInputClasspath := fullClasspath.in(input, Compile).value,
+    scalafixTestkitInputScalacOptions := scalacOptions.in(input, Compile).value,
+    scalafixTestkitInputScalaVersion := scalaVersion.in(input, Compile).value
   )
   .dependsOn(scalaz2cats)
   .enablePlugins(ScalafixTestkitPlugin)

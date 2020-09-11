@@ -1,6 +1,6 @@
 /*
 rules = [
-  "class:fix.MigrateEither",
+  MigrateEither,
   "class:fix.MigrateBoolean",
 ]
 */
