@@ -1,7 +1,6 @@
 /*
 rules = [
-  "class:fix.MigrateEither",
-  "class:fix.RemoveGlobalImports",
+  "class:fix.ScalazToCats"
 ]
 */
 package fix

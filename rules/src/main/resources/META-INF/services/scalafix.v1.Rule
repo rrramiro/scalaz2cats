@@ -1,4 +1,5 @@
 fix.MigrateEither
+fix.MigrateEitherT
 fix.MigrateOptionSyntax
 fix.MigrateValidationNel
 fix.MigrateValidation
@@ -6,3 +7,6 @@ fix.RemoveGlobalImports
 fix.MigrateEqual
 fix.MigrateBoolean
 fix.MigrateNonEmptyList
+fix.MigrateMonad
+fix.MigrateMonoid
+fix.ScalazToCats

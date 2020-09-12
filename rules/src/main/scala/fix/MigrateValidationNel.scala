@@ -12,6 +12,7 @@ class MigrateValidationNel extends SemanticRule("MigrateValidationNel") {
   private lazy val nonEmptyListScalaz = SymbolMatcher.normalized("scalaz.NonEmptyList.")
   private lazy val successNel = SymbolMatcher.normalized("scalaz.syntax.ValidationOps.successNel.")
   private lazy val failureNel = SymbolMatcher.normalized("scalaz.syntax.ValidationOps.failureNel.")
+  private lazy val liftNel = SymbolMatcher.exact("scalaz/Validation.liftNel().")
 
   private[this] val cartesianBuilders = SymbolMatcher.normalized(
     ("scalaz.syntax.ApplyOps.`|@|`." ::
@@ -76,6 +77,10 @@ class MigrateValidationNel extends SemanticRule("MigrateValidationNel") {
         Patch.addRight(t, ".mapN")
       case Term.Apply(nonEmptyListScalaz(t), _) =>
         Patch.addRight(t, ".of")
+      case t @ Term.Apply(Term.Apply(liftNel(_), List(main )), List(cond, fail)) =>
+        val sig = main.symbol.info.get.signature.asInstanceOf[ValueSignature]
+        Patch.replaceTree(t, s"Validated.condNel(((${cond.syntax}): ${sig.tpe} => Boolean)(${main.syntax}), ${main.syntax}, ${fail.syntax})") +
+          Patch.addGlobalImport(importer"cats.data.Validated")
     }.asPatch +
       Patch.replaceSymbols(cartesianAppliesRenames.toSeq: _*) +
       addValidatedSyntaxImportIfNeeded(ctx)
